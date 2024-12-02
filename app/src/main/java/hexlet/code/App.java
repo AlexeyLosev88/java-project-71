@@ -19,11 +19,22 @@ import java.util.concurrent.Callable;
 */
 
 public class App implements Runnable {
+    @Parameters(paramLabel = "filepath1", index = "0", description = "path to first file")
+    private File filepath1;
+    @Parameters(paramLabel = "filepath2", index = "0", description = "path to second file")
+    private File filepath2;
+
+    @Option(paramLabel = "format", names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "stylish";
+
+    /*@Option(names = { "-h", "--help" }, usageHelp = true, description = "display a help message")
+    private boolean helpRequested = false;*/
+
+
+
     @Override
     public void run() {
         // The business logic of the command goes here...
-        // In this case, code for generation of ASCII art graphics
-        // (omitted for the sake of brevity).
     }
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
