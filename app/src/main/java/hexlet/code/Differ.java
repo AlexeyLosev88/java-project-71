@@ -1,5 +1,5 @@
 package hexlet.code;
 
-public class Differ {
-    //generate()
+public class Differ  {
+
 }
