@@ -19,8 +19,6 @@ import java.nio.file.Paths;
         description = "Compares two configuration files and shows a difference.")
 
 class App implements Callable<Integer> {
-    //public static String data2;
-    //public static String data1;
     @Parameters(index = "0", description = "path to first file", paramLabel = "filepath1")
     private String filepath1;
     @Parameters(index = "1", description = "path to second file",paramLabel = "filepath2")
@@ -41,29 +39,14 @@ class App implements Callable<Integer> {
         String content2 = Files.readString(writeFilePath2);
         //System.out.println(content1);
         //System.out.println(content2);
-
         ObjectMapper map = new ObjectMapper();
         Map<String, Object> data1 = map.readValue(content1, Map.class);
+        //System.out.println(data1);
         Map<String, Object> data2 = map.readValue(content2, Map.class);
-        List<Map<String, Object>> result = new ArrayList<>();
-        result.add(data1);
-        result.add(data2);
-        System.out.println(result);
-
-        //System.out.println(getData(content1, content2));
-
-
+        //System.out.println(data2);
+        System.out.println(Differ.generate(data1, data2));
         return 0;
     }
-
-   /* public static Map getData(String content1, String content2 ) throws Exception {
-        Map<String, String> dataMap = new HashMap<>();
-        dataMap.put("key1", content1);
-        dataMap.put("key2", content2);
-        return dataMap;
-
-        //return parse(content);
-    } */
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
