@@ -1,6 +1,6 @@
 package hexlet.code;
+
 import java.util.Map;
-import java.util.*;
 import java.util.Set;
 import java.util.TreeSet;
 public class Differ {
@@ -24,8 +24,7 @@ public class Differ {
             //System.out.println("Value: " + s.getValue());
             if (!data1.containsKey(s)) {
                 diff.append(" + " + s + ": " + data2.get(s) + "\n");
-            }
-            else if (!data2.containsKey(s)) {
+            } else if (!data2.containsKey(s)) {
                 diff.append(" - " + s + ": " + data1.get(s) + "\n");
             } else {
                 if (data2.get(s).equals(data1.get(s))) {
