@@ -1,2 +1,4 @@
 run-dist: # запуск исполняемого файла
-	./build/install/app/bin/app
+	./app/build/install/app/bin/app
+
+.PHONY: build
