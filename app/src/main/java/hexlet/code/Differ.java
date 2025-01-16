@@ -1,18 +1,25 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 public class Differ {
 
-    public static String generate(Map<String, Object> data1, Map<String, Object> data2) {
-        //Map<String, Object> sortedMap1 = new TreeMap<>(data1);
-       //Map<String, Object> sortedMap2 = new TreeMap<>(data2);
-        //System.out.println(sortedMap1);
-        //System.out.println(sortedMap2);
-        //System.out.println(sortedMap1.keySet().equals(sortedMap2.keySet()));
-        //System.out.println(sortedMap1.keySet());
-        //System.out.println(sortedMap2.keySet());
+    public static String generate(String file1, String file2) throws IOException {
+
+        Path writeFilePath1 = Paths.get(file1).toAbsolutePath().normalize();
+        Path writeFilePath2 = Paths.get(file2).toAbsolutePath().normalize();
+        String content1 = Files.readString(writeFilePath1);
+        String content2 = Files.readString(writeFilePath2);
+        ObjectMapper map = new ObjectMapper();
+        Map<String, Object> data1 = map.readValue(content1, Map.class);
+        Map<String, Object> data2 = map.readValue(content2, Map.class);
 
         StringBuilder diff = new StringBuilder();
         diff.append("{ \n");
@@ -20,8 +27,6 @@ public class Differ {
         set.addAll(data1.keySet());
         set.addAll(data2.keySet());
         for (var s : set) {
-            //System.out.println("Key: " + s);
-            //System.out.println("Value: " + s.getValue());
             if (!data1.containsKey(s)) {
                 diff.append(" + " + s + ": " + data2.get(s) + "\n");
             } else if (!data2.containsKey(s)) {
@@ -37,9 +42,10 @@ public class Differ {
             }
         }
         diff.append("}");
-        //System.out.println(diff);
         return diff.toString();
     }
-
-
+    public static String getData(String file) throws IOException {
+        Path path = Paths.get(file).toAbsolutePath().normalize();
+        return Files.readString(path);
+    }
 }
